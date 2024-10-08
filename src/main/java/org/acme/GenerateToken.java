@@ -3,7 +3,7 @@ package org.acme;
 import io.smallrye.jwt.build.Jwt;
 
 
-public class JWTUtils {
+public class GenerateToken {
     public static String generateToken(String username, String role) {
         if (username == null || role == null) {
             throw new IllegalArgumentException("username and role cannot be null");
