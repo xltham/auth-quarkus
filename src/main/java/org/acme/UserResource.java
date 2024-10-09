@@ -22,7 +22,7 @@ public class UserResource {
     @Path("/register")
     @Transactional
     public Response register(UserDTO userDTO) {
-        var newUser = new User(userDTO.username, userDTO.password, userDTO.role);
+        var newUser = new User(userDTO.username, userDTO.password, userDTO.CPF, userDTO.role);
 
         User.persist(newUser);
         return Response.status(201).build();
@@ -36,8 +36,6 @@ public class UserResource {
 
                 String token = userService.generateToken(user.username, user.role);
                 return Response.ok(token).build();
-
-
         }
 
         return Response.status(401).entity("Credenciais invalidas").build() ;

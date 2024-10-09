@@ -1,4 +1,4 @@
-package org.acme;
+package org.acme.service;
 
 import io.smallrye.jwt.build.Jwt;
 
@@ -6,7 +6,7 @@ import io.smallrye.jwt.build.Jwt;
 public class GenerateToken {
     public static String generateToken(String username, String role) {
         if (username == null || role == null) {
-            throw new IllegalArgumentException("username and role cannot be null");
+            throw new SecurityException("username and role cannot be null");
         }
 
         String token = Jwt.issuer("auth-quarkus")
