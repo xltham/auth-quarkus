@@ -9,7 +9,7 @@ import java.util.Base64;
 public class AESUtil {
 
         private static final String ALGORITHM = "AES";
-        private static final String SECRET_KEY = "./gs$Ru4J/4e)wc&3r8\"Bi,s5{fOP/";
+        private static final String SECRET_KEY = "gsRu4J4ewc&3r8Bi";
 
         public static String encrypt(String value) throws Exception {
             Key key = new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), ALGORITHM);
@@ -20,7 +20,7 @@ public class AESUtil {
         }
 
         public static String decrypt(String encryptValue) throws Exception {
-            Key key = new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), ALGORITHM);
+            Key key = new SecretKeySpec(SECRET_KEY.getBytes(), ALGORITHM);
             Cipher cipher = Cipher.getInstance(ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, key);
             byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptValue));

@@ -9,8 +9,8 @@ import jakarta.persistence.Table;
 //classifica como entidade para o banco de dados
 @Entity
 
-@Table(name = "users")
 //cria o user
+@Table(name = "users")
 public class User extends PanacheEntity {
 
 //    indica que a entidade deve ser mapeada em coluna
