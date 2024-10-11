@@ -1,11 +1,10 @@
-package org.acme;
+package org.acme.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.acme.service.GenerateToken;
+import org.acme.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 // registro no banco de dados e verificar se o usuario existe
-
 @ApplicationScoped
 public class UserService {
 

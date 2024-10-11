@@ -5,6 +5,8 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import me.yanaga.opes.Cpf;
+import org.acme.service.AESUtil;
 
 //classifica como entidade para o banco de dados
 @Entity
@@ -15,22 +17,37 @@ public class User extends PanacheEntity {
 
 //    indica que a entidade deve ser mapeada em coluna
     @Column (unique = true)
-        String username;
+     String username;
      String password;
      @Column (unique = true)
-        String CPF;
+     String cpf;
      String role;
 
 
-     //  constructor vazio
+     // CONSTRUTOR VAZIO É LEI
      public User (){}
+     // CONSTRUTOR LEMBRA DISSO BURRO
+     public User(String username, String password, String cpf, String role) throws Exception {
 
-    public User(String username, String password,String CPF, String role) {
+        if (!CpfValidator(cpf)) {
+            throw new IllegalArgumentException("Cpf invalido");
+        }
         this.username = username;
         this.password = BcryptUtil.bcryptHash(password);
-        this.CPF = CPF;
+        this.cpf =  AESUtil.encrypt(cpf);
         this.role = role;
+     }
+
+    private boolean CpfValidator(String cpf) {
+        try {
+            Cpf.of(cpf);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
+
+
 
 
 }
