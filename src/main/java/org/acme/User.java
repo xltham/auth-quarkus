@@ -2,11 +2,13 @@ package org.acme;
 
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import me.yanaga.opes.Cpf;
 import org.acme.service.AESUtil;
+
+import javax.management.relation.Role;
+import java.util.HashSet;
+import java.util.Set;
 
 //classifica como entidade para o banco de dados
 @Entity
@@ -22,6 +24,14 @@ public class User extends PanacheEntity {
      @Column (unique = true)
      String cpf;
      String role;
+
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id")
+//    )
+//    public Set<Role> roles = new HashSet<>();
 
 
      // CONSTRUTOR VAZIO É LEI
@@ -46,8 +56,4 @@ public class User extends PanacheEntity {
             return false;
         }
     }
-
-
-
-
 }
