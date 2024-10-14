@@ -12,10 +12,10 @@ public class AESUtil {
         private static final String SECRET_KEY = "gsRu4J4ewc&3r8Bi";
 
         public static String encrypt(String value) throws Exception {
-            Key key = new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), ALGORITHM);
+            Key key = new SecretKeySpec(SECRET_KEY.getBytes(), ALGORITHM);
             Cipher cipher = Cipher.getInstance(ALGORITHM);
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] encryptedBytes = cipher.doFinal(value.getBytes(StandardCharsets.UTF_8));
+            byte[] encryptedBytes = cipher.doFinal(value.getBytes());
             return Base64.getEncoder().encodeToString(encryptedBytes);
         }
 

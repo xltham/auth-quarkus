@@ -2,12 +2,12 @@ package org.acme;
 
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.security.jpa.Roles;
 import jakarta.persistence.*;
 import me.yanaga.opes.Cpf;
+import org.acme.entity.Role;
 import org.acme.service.AESUtil;
 
-import javax.management.relation.Role;
-import java.util.HashSet;
 import java.util.Set;
 
 //classifica como entidade para o banco de dados
@@ -23,21 +23,21 @@ public class User extends PanacheEntity {
      String password;
      @Column (unique = true)
      String cpf;
-     String role;
+//     String role;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "user_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id")
-//    )
-//    public Set<Role> roles = new HashSet<>();
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"),
+            inverseJoinColumns = @JoinColumn(name = "rolename", referencedColumnName = "roleName")
+    )
+    @Roles
+    public Set<Role> roles;
 
      // CONSTRUTOR VAZIO É LEI
      public User (){}
      // CONSTRUTOR LEMBRA DISSO BURRO
-     public User(String username, String password, String cpf, String role) throws Exception {
+     public User(String username, String password, String cpf) throws Exception {
 
         if (!CpfValidator(cpf)) {
             throw new IllegalArgumentException("Cpf invalido");
@@ -45,7 +45,6 @@ public class User extends PanacheEntity {
         this.username = username;
         this.password = BcryptUtil.bcryptHash(password);
         this.cpf =  AESUtil.encrypt(cpf);
-        this.role = role;
      }
 
     private boolean CpfValidator(String cpf) {
