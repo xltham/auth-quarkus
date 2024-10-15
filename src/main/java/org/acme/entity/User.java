@@ -1,11 +1,10 @@
-package org.acme;
+package org.acme.entity;
 
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.security.jpa.Roles;
 import jakarta.persistence.*;
 import me.yanaga.opes.Cpf;
-import org.acme.entity.Role;
 import org.acme.service.AESUtil;
 
 import java.util.Set;
@@ -19,10 +18,10 @@ public class User extends PanacheEntity {
 
 //    indica que a entidade deve ser mapeada em coluna
     @Column (unique = true)
-     String username;
-     String password;
+     public String username;
+     public String password;
      @Column (unique = true)
-     String cpf;
+     public String cpf;
 //     String role;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -54,5 +53,7 @@ public class User extends PanacheEntity {
         } catch (IllegalArgumentException e) {
             return false;
         }
+
+
     }
 }

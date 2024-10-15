@@ -1,10 +1,9 @@
 package org.acme.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.acme.User;
+import org.acme.entity.User;
 import org.mindrot.jbcrypt.BCrypt;
 
-import javax.management.relation.Role;
 import java.util.Set;
 
 // registro no banco de dados e verificar se o usuario existe
